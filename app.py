@@ -18,6 +18,7 @@ class CoursesData(db.Model):
     course_section = db.Column(db.String(20))
     students_id = db.Column(db.Integer, db.ForeignKey('student_data.id'))
 
+@app.route('/', methods=['GET', 'POST'])
 def home():
     if request.method == 'POST':
         if 'student_id_s' in request.form:
