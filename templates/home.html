@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Registro</title>
+{% endblock %}
+
+{% block body %}
+
+<hr>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4">
+            <h2 style='font-weight: bold;'>Registro</h2>
+            <small>Student's Registration Management System</small>
+        </div>
+        <div class="col-md-8 text-md-right align-self-center">
+            <form action='/' method='POST' style="display: none;" id="search_id">
+                <b>ID: </b> <input type='text' name='student_id_s' id='student_id_s'
+                    class="rounded-pill blackborder leftpadding">
+                <button type="submit" class="btn btn-primary rounded-pill paddingb mb-1 ml-1 btn-sm">
+                    <i class="fas fa-search"></i> Search
+                </button>
+                <input type="button" class="btn btn-danger rounded-pill paddingb mb-1 ml-1 btn-sm" id="cancel_search"
+                    value="Cancel">
+            </form>
+            <button type="button" class="btn btn-outline-info rounded-pill paddingb mb-1 ml-1 btn-sm" id="search_button">
+                <i class="fas fa-search"></i> Search
+            </button>
+            <!-- 
+            <input type="button" class="btn btn-info rounded-pill paddingb mb-1 ml-1 btn-sm" id="search_button"
+                value="Search"> -->
+
+            <button type="button" class="btn btn-primary rounded-pill paddingb mb-1 ml-1 btn-sm" id="add"
+                data-toggle="modal" data-target="#exampleModalCenter">
+                <i class="fas fa-plus"></i> Add New
+            </button>
+
+
+        </div>
+    </div>
+</div>
+<hr>
+
+<!-- Add Student NEW VIEW -->
+<!-- Button trigger modal -->
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="exampleModalLongTitle" style='font-weight: bold;'>New Student Data</h4>
+                <form action="/">
+                    <button type="submit" class="close" aria-label="Close">
+                </form>
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action='/' method='POST' id='newstdnt'>
+                    Student Name: <input type='text' name='student_name' id='student_name'
+                        class="rounded-pill blackborder leftpadding" placeholder="Enter Student Name">
+
+                    <hr>
+                    Student ID: <input type='text' name='student_id' id='student_id'
+                        class="rounded-pill blackborder leftpadding" placeholder="Enter Student ID">
+
+                    <hr>
+                    Registration Status <select name="reg_status" id="reg_status" class="rounded-pill blackborder">
+                        <option value="Complete">Complete</option>
+                        <option value="Partial">Partial</option>
+                        <option value="Pending">Pending</option>
+                    </select>
+                    <hr>
+
+                    <div class="table-responsive" id="courseTable">
+                        <table class="table table-bordered table-hover table-fixed table-sm">
+                            <thead>
+                                <tr>
+                                    <th style="width: 50%">Courses <input type="button"
+                                            class="btn btn-outline-success rounded-pill btn-sm py-0"
+                                            style="font-size: 0.8em;" onclick="doTheInsert()" value="Add New"></td>
+                                    <th style="width: 50%">Section</td>
+                                </tr>
+                            </thead>
+                            <tbody id="coursesectable">
+                            </tbody>
+                        </table>
+                    </div>
+
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger rounded-pill" onclick="resetForumInput()"
+                    data-dismiss="modal" id=cancel_add>Cancel</button>
+                <button type="submit" class="btn btn-success rounded-pill" id="addcoursebutton"><i class="fas fa-save"></i> Save</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- Student Data View Table -->
+<div class="table-responsive">
+    <table class="table table-bordered table-hover table-fixed">
+        <thead class="thead-dark">
+            <tr>
+                <th style="width: 20%">Student ID</th>
+                <th style="width: 30%">Student Name</th>
+                <th style="width: 20%">Reg Status</th>
+                <th style="width: 30%">Options</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in students %}
+            <tr>
+                <td>{{ student.student_id }}</td>
+                <td> {{ student.student_name }}</td>
+                <td> {% if student.reg_status == 'Complete' %}
+                    <span class="dotgreen"></span>
+                    {% elif student.reg_status == 'Partial' %}
+                    <span class="dotyellow"></span>
+                    {% elif student.reg_status == 'Pending' %}
+                    <span class="dotred"></span>
+                    {% endif %}
+                    {{ student.reg_status }}</td>
+                <td>
+                    <a href='/view/{{student.id}}' class="btn btn-info rounded-pill paddingb mb-1 ml-1 btn-sm"><i class="fas fa-info-circle"></i> Details</a>
+                    <a href='/delete/{{student.id}}' class="btn btn-danger rounded-pill paddingb mb-1 ml-1 btn-sm"><i class="fas fa-trash"></i> Delete</a>
+                    <a href='/edit/{{student.id}}'class="btn btn-secondary rounded-pill paddingb mb-1 ml-1 btn-sm"><i class="fas fa-user-edit"></i> Edit</a>
+                </td>
+
+            </tr>
+            {% endfor%}
+        </tbody>
+    </table>
+
+</div>
+{% endblock %}

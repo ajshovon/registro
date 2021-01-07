@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Registro</title>
+{% endblock %}
+
+{% block body %}
+
+<hr>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4">
+            <h2>Registro</h2>
+        </div>
+        <div class="col-md-5 text-md-right align-self-center nopadding"><span class="float-md-right">
+                <form action='/' method='POST' style="display: none;" id="search_id">
+                    ID: <input type='text' name='student_id_s' id='student_id_s'>
+                    <input type='submit' value='Search'>
+            </span>
+            </form>
+        </div>
+        <div class="col-md-1 text-md-right align-self-center nopadding"><span class="float-md-right"><input
+                    type="button" id="search_button" value="Search"></span>
+        </div>
+        <div class="col-md-2 text-md-right align-self-center"><span class="float-md-right"><input type="button"
+                    id="add" value="Add New Student"></span>
+        </div>
+    </div>
+</div>
+<hr>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-hover table-fixed">
+        <thead class="thead-dark">
+            <tr>
+                <th style="width: 25%">Student ID</th>
+                <th style="width: 35%">Student Name</th>
+                <th style="width: 20%">Reg Status</th>
+                <th style="width: 20%">Options</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student_ in students %}
+            <tr>
+                {% if student_.id == student.id %}
+                <form action='/edit/{{student.id}}' method='POST'>
+                    <td><input type='text' name='student_id_' id='student_id_' value="{{ student.student_id }}">
+                    </td>
+                    <td><input type='text' name='student_name_' id='student_name_' value="{{ student.student_name }}">
+                    </td>
+                    <td><select name='reg_status_' id='reg_status_'>
+                            <option value='{{ student.reg_status }}' selected hidden >{{ student.reg_status }}</option>
+                            <option value="Complete">Complete</option>
+                            <option value="Partial">Partial</option>
+                            <option value="Pending">Pending</option>
+                        </select></td>
+                    <td><input type='submit' value='Done'></td>
+                </form>
+                {% else %}
+                <td>{{ student_.student_id }}</td>
+                <td> {{ student_.student_name }}</td>
+                <td> {{ student_.reg_status }}</td>
+                <td>
+                    <a href='/delete/{{student_.id}}'>Delete</a>
+                    -
+                    <a href='/edit/{{student_.id}}'>Edit</a>
+                </td>
+                {% endif %}
+            </tr>
+            {% endfor%}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
