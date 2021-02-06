@@ -9,11 +9,17 @@
   </a>
 </p>
 
-<div align = "center">
+
 A simple web app made with flask for managing student's registration & courses information
 </div>
 
-### ✨ [Demo](https://re.shovon.me/o68)
+<div align = "center">
+
+![Preview](demo_preview.gif)
+
+</div>
+
+### ✨ [Live Demo](https://re.shovon.me/o68)
 
 ## Getting started
 
@@ -29,7 +35,7 @@ python3 app.py
 
 👤 **shovon668**
 
-* Website: shovon.me
+* Website: [shovon.me](https://shovon.me)
 * Twitter: [@shovon668](https://redirect.shovon.me/twitter)
 * Telegram: [@shovon668](https://redirect.shovon.me/telegram)
 * Github: [@shovon668](https://redirect.shovon.me/github)
@@ -48,4 +54,3 @@ Copyright © 2020 [Shovon](https://github.com/shovon668).<br />
 This project is [MIT](https://github.com/shovon668/registro/blob/main/LICENSE) licensed.
 
 ***
-_Screenshots, full demo & source will be published soon!_
